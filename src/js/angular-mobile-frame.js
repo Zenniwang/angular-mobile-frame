@@ -1,4 +1,4 @@
-(function (angular) {
+(function (angular, undefined) {
 
 	var _$mobileFrame_ = '$mobileFrame',
 		_directive_ = 'directive';
@@ -146,27 +146,72 @@
 			};
 		}])
 
-		[_directive_]('mobileContent', [_$mobileFrame_, '$window', function ($mobileFrame, $window) {
+		[_directive_]('mobileContent', [_$mobileFrame_, '$window', '$compile', function ($mobileFrame, $window, $compile) {
 
 			function contentHeight() {
 				return $window.innerHeight - ($mobileFrame.getHeaderHeight() + $mobileFrame.getFooterHeight());
 			}
 
+			function getTemplate(ngView, contents) {
+
+				var tpl = '<div class="mobile-content" role="main">';
+
+				if ( ngView ) {
+					tpl += '<div class="mobile-content-inner" ng-view></div>';
+				} else {
+					tpl += '<div class="mobile-content-inner">' + contents + '</div>';
+				}
+
+				tpl += '</div>';
+
+				return tpl;
+
+			}
+
+			function linkStuff($elem) {
+				$elem.css('height', contentHeight() + 'px');
+				angular.element($window).bind('resize', function () {
+					$elem.css('height', contentHeight() + 'px');
+				});
+			}
+
 			return {
 				restrict: 'E',
-				transclude: true,
-				replace: true,
-				template: [
-					'<div class="mobile-content" role="main">',
-					'	<div class="mobile-content-inner" ng-transclude></div>',
-					'</div>'
-				].join(''),
-				link: function ($scope, $elem, $attrs) {
+				transclude: 'element',
+				scope: true,
+				compile: function (tElem, tAttrs, transclude) {
 
-					$elem.css('height', contentHeight() + 'px');
-					angular.element($window).bind('resize', function () {
-						$elem.css('height', contentHeight() + 'px');
-					});
+					var ngView = tAttrs.ngView !== undefined,
+						oldClasses = tAttrs.class;
+
+					return function ($scope, $elem, $attrs) {
+
+						var $newElem;
+
+						if ( ngView ) {
+
+							$newElem = angular.element(getTemplate(ngView));
+							$newElem.addClass(oldClasses);
+							$compile($newElem)($scope);
+							$elem.replaceWith($newElem);
+
+							linkStuff($newElem);
+
+							return;
+
+						}
+
+						transclude($scope, function ($clone) {
+
+							$newElem = angular.element(getTemplate(ngView, $clone.html()));
+							$newElem.addClass(oldClasses);
+							$elem.replaceWith($newElem);
+
+							linkStuff($newElem);
+
+						});
+
+					};
 
 				}
 			};

@@ -16,7 +16,7 @@ To use Angular Mobile Frame include angular.js, dist/js/angular-mobile-frame-x.x
 				.setHeaderHeight(50)
 				.setFooterHeight(30)
 				.setNavWidth(200);
-		});
+		}]);
 
 The `ek.mobileFrame` injects the component. Inside the `config`-method the height for top- and bottom-bar and the width of the off-canvas-navigation-area are set.
 

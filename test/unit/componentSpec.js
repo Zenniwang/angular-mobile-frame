@@ -16,7 +16,7 @@ describe('ek.mobileFrame', function () {
 
   describe('mobileFrameDirective', function () {
 
-    var elem, scope;
+    var elem, elem2, scope, scope2;
 
     beforeEach(inject(function ($rootScope, $compile) {
 
@@ -24,13 +24,30 @@ describe('ek.mobileFrame', function () {
         '<mobile-frame class="custom-class">',
         ' <mobile-header>Hodor says: {{hodor}}</mobile-header>',
         ' <mobile-nav>A link: {{link}}</mobile-nav>',
-        ' <mobile-content class="foobar"></mobile-content>',
+        ' <mobile-content class="foobar" ng-view></mobile-content>',
         ' <mobile-footer>&copy; {{year}}</mobile-footer>',
         '</mobile-frame>'
       ].join(''));
+
+      elem2 = angular.element([
+        '<mobile-frame class="custom-class">',
+        ' <mobile-header>Hodor says: {{hodor}}</mobile-header>',
+        ' <mobile-nav>A link: {{link}}</mobile-nav>',
+        ' <mobile-content class="hodor">',
+        '   <h1>Foobar</h1>',
+        ' </mobile-content>',
+        ' <mobile-footer>&copy; {{year}}</mobile-footer>',
+        '</mobile-frame>'
+      ].join(''));
+
       scope = $rootScope.$new();
+      scope2 = $rootScope.$new();
+
       $compile(elem)(scope);
+      $compile(elem2)(scope2);
+
       scope.$digest();
+      scope2.$digest();
 
       $window.innerHeight = 100;
 
@@ -94,13 +111,23 @@ describe('ek.mobileFrame', function () {
 
       var content = $('.mobile-content', elem),
           inner = content.find('.mobile-content-inner'),
+          content2 = $('.mobile-content', elem2),
+          inner2 = content2.find('.mobile-content-inner'),
+          hl = inner2.find('h1'),
           evt;
 
       expect(content.length).toEqual(1);
+      expect(content.attr('ng-view')).toBeUndefined();
       expect(inner.length).toEqual(1);
+      expect(inner.attr('ng-view')).toBeDefined();
       expect(content[0].className).toContain('foobar');
       expect(content.attr('role')).toEqual('main');
       expect(content.css('height')).toEqual('30px');
+
+      expect(content2.length).toEqual(1);
+      expect(content2[0].className).toContain('hodor');
+      expect(inner2.length).toEqual(1);
+      expect(inner2.html()).toContain('<h1>Foobar</h1>');
 
       $window.innerHeight = 170;
 
