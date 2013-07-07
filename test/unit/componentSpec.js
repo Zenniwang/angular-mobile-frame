@@ -93,9 +93,11 @@ describe('ek.mobileFrame', function () {
     it('should have the content', function () {
 
       var content = $('.mobile-content', elem),
+          inner = content.find('.mobile-content-inner'),
           evt;
 
       expect(content.length).toEqual(1);
+      expect(inner.length).toEqual(1);
       expect(content[0].className).toContain('foobar');
       expect(content.attr('role')).toEqual('main');
       expect(content.css('height')).toEqual('30px');
