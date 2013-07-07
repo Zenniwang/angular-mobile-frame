@@ -55,7 +55,7 @@ describe('ek.mobileFrame', function () {
     it('should have the header.', function () {
 
       var header = elem.find('header'),
-          headerInner = header.find('div').eq(0);
+          headerInner = header.find('div');
 
       expect(header.length).toEqual(1);
       expect(header[0].className).toContain('mobile-header');
@@ -75,24 +75,24 @@ describe('ek.mobileFrame', function () {
 
     it('should have the navigation', function () {
 
-      var nav = elem.find('div').eq(1);
+      var nav = $('.mobile-nav', elem),
+          inner = nav.find('.mobile-nav-inner');
 
       expect(nav.length).toEqual(1);
-      expect(nav[0].className).toContain('mobile-nav');
       expect(nav.css('width')).toEqual('200px');
-      expect(nav.text()).toEqual('A link: ');
+      expect(inner.text()).toEqual('A link: ');
 
       scope.$apply(function () {
         scope.link = 'Foobar';
       });
 
-      expect(nav.text()).toEqual('A link: Foobar');
+      expect(inner.text()).toEqual('A link: Foobar');
 
     });
 
     it('should have the content', function () {
 
-      var content = elem.find('div').eq(2),
+      var content = $('.mobile-content', elem),
           evt;
 
       expect(content.length).toEqual(1);
@@ -112,18 +112,18 @@ describe('ek.mobileFrame', function () {
 
     it('should have the footer', function () {
 
-      var footer = elem.find('footer');
+      var footer = $('.mobile-footer', elem),
+          inner = footer.find('.mobile-footer-inner');
 
       expect(footer.length).toEqual(1);
-      expect(footer[0].className).toContain('mobile-footer');
       expect(footer.css('height')).toEqual('30px');
-      expect(footer.text()).toEqual('© ');
+      expect(inner.text()).toEqual('© ');
 
       scope.$apply(function () {
         scope.year = '2013';
       });
 
-      expect(footer.text()).toEqual('© 2013');
+      expect(inner.text()).toEqual('© 2013');
 
     });
 
