@@ -72,8 +72,15 @@ a:hover {
 	appearance: none;
 	}
 
+.mobile-header-inner,
+.mobile-content-inner,
+.mobile-footer-inner {
+	padding: 0 .625em;
+	}
+
 .mobile-header-inner {
-	padding: 5px .625em;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	float: left;
 	}
 
@@ -84,11 +91,6 @@ a:hover {
 
 .mobile-content h1 {
 	padding: 0 .416667em;
-	}
-
-.mobile-content p,
-.mobile-footer small {
-	padding: 0 .625em;
 	}
 
 .mobile-footer small {
