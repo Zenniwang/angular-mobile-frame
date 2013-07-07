@@ -2,6 +2,8 @@
 
 Angular Mobile Frame gives you a set of HTML-elements for building a typical mobile webiste — including top- and bottom-bar and an off-canvas-navigation-area.
 
+### [View the Demo](http://herschel666.github.io/angular-mobile-frame/)
+
 ## Usage
 
 To use Angular Mobile Frame include angular.js, dist/js/angular-mobile-frame-x.x.x.min.js and dist/css/angular-mobile-frame-x.x.x.css in your site. Then write the following in your JS-script:
@@ -59,13 +61,13 @@ Angular Mobile Frame takes care of setting the correct height to the top-bar, th
 
 ## Usage with `ng-view`
 
-If you have routing and want angular to take care displaying the content, just add the `ng-view`-attribute to the `mobile-content`-element. That's it!
+If you have routing and want angular to take care of displaying the content, just add the `ng-view`-attribute to the `mobile-content`-element. That's it!
 
 ## Scrolling inside the content-area.
 
 In the component's CSS I added `-webkit-overflow-scrolling: touch`. That's rather nice but unfortunately it doesn't guarantee a correct scrolling behaviour on some mobile devices. If you want to ensure, that only the content area is scrolling and not the whole site, you have to include a custom solution like [iScroll](http://cubiq.org/iscroll-4).
 
-In the moment I'm not planning to include it into this component.
+In the moment I'm not planning to include custom scrolling into this component.
 
 ## Meta
 
