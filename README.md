@@ -82,6 +82,10 @@ Me in teh interwebs:
 [@Herschel_R](http://twitter.com/Herschel_R)<br>
 [EK-Blog](http://www.emanuel-kluge.de/)
 
+Credits:
+
+Built upon [angular-component-seed](https://github.com/PascalPrecht/angular-component-seed).
+
 ## License
 
 DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
