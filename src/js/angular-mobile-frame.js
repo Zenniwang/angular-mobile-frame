@@ -148,31 +148,38 @@
 
 		[_directive_]('mobileContent', [_$mobileFrame_, '$window', '$compile', function ($mobileFrame, $window, $compile) {
 
+			var tmpl = angular.element([
+					'<div class="mobile-content" role="main">',
+					'	<div class="mobile-content-inner"></div>',
+					'</div>'
+				].join('')),
+				oldAttrs;
+
 			function contentHeight() {
 				return $window.innerHeight - ($mobileFrame.getHeaderHeight() + $mobileFrame.getFooterHeight());
 			}
 
-			function getTemplate(ngView, contents) {
+			function transferAttributes($elem) {
 
-				var tpl = '<div class="mobile-content" role="main">';
+				var $inner = $elem.find('div');
 
-				if ( ngView ) {
-					tpl += '<div class="mobile-content-inner" ng-view></div>';
-				} else {
-					tpl += '<div class="mobile-content-inner">' + contents + '</div>';
-				}
+				angular.forEach(oldAttrs, function (_val, _attr) {
 
-				tpl += '</div>';
+					var val, attr;
 
-				return tpl;
+					if ( !angular.isString(_val) ) {
+						return;
+					}
 
-			}
-
-			function linkStuff($elem) {
-				$elem.css('height', contentHeight() + 'px');
-				angular.element($window).bind('resize', function () {
-					$elem.css('height', contentHeight() + 'px');
+					attr = oldAttrs.$attr[_attr];
+					val = attr === 'class' ?
+						$inner.attr('class') + ' ' + _val :
+						_val;
+					$inner.attr(attr, val);
 				});
+
+				return $elem;
+
 			}
 
 			return {
@@ -181,33 +188,22 @@
 				scope: true,
 				compile: function (tElem, tAttrs, transclude) {
 
-					var ngView = tAttrs.ngView !== undefined,
-						oldClasses = tAttrs.class;
+					oldAttrs = tAttrs;
 
 					return function ($scope, $elem, $attrs) {
 
-						var $newElem;
+						var $newElem = transferAttributes(tmpl);
 
-						if ( ngView ) {
-
-							$newElem = angular.element(getTemplate(ngView));
-							$newElem.addClass(oldClasses);
-							$compile($newElem)($scope);
-							$elem.replaceWith($newElem);
-
-							linkStuff($newElem);
-
-							return;
-
-						}
+						$compile($newElem)($scope);
 
 						transclude($scope, function ($clone) {
 
-							$newElem = angular.element(getTemplate(ngView, $clone.html()));
-							$newElem.addClass(oldClasses);
+							$newElem.find('div').html($clone.html());
 							$elem.replaceWith($newElem);
-
-							linkStuff($newElem);
+							$newElem.css('height', contentHeight() + 'px');
+							angular.element($window).bind('resize', function () {
+								$newElem.css('height', contentHeight() + 'px');
+							});
 
 						});
 
