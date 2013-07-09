@@ -101,7 +101,21 @@ a:hover {
 	font-size: 1.25em;
 	}
 
+.github-ribbon {
+	position: absolute;
+	width: 149px;
+	height: 149px;
+	top: 0;
+	right: 0;
+	border: 0;
+	}
+
 @media (max-width: 480px) {
+
+	.github-ribbon {
+		width: 99px;
+		height: 99px;
+		}
 
 	.mobile-header-inner strong {
 		font-size: 1.1em;
