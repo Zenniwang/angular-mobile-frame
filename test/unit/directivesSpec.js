@@ -155,7 +155,7 @@ describe('ek.mobileFrame', function () {
         ' <mobile-header></mobile-header>',
         ' <mobile-nav></mobile-nav>',
         ' <mobile-content class="foo bar" some-foo="bar" ng-animate="{enter: \'hodor\'}">',
-        '   <h1>Foobar</h1>',
+        '   <h1>Foobar - {{hodor}}</h1>',
         ' </mobile-content>',
         ' <mobile-footer></mobile-footer>',
         '</mobile-frame>'
@@ -176,11 +176,16 @@ describe('ek.mobileFrame', function () {
           headline = inner.find('h1');
 
       expect(content.length).toEqual(1);
-      expect(inner.length).toEqual(1);
-      expect(inner.html()).toContain('Foobar');
-      expect(headline.length).toEqual(1);
       expect(content.attr('role')).toEqual('main');
-      expect(headline.text()).toEqual('Foobar');
+      expect(inner.length).toEqual(1);
+      expect(headline.length).toEqual(1);
+      expect(headline.text()).toEqual('Foobar - ');
+
+      scope.$apply(function () {
+        scope.hodor = 'Hodor';
+      });
+
+      expect(headline.text()).toEqual('Foobar - Hodor');
 
     });
 

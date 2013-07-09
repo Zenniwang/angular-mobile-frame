@@ -191,14 +191,12 @@
 					oldAttrs = tAttrs;
 
 					return function ($scope, $elem, $attrs) {
-
-						var $newElem = transferAttributes(tmpl);
-
-						$compile($newElem)($scope);
-
 						transclude($scope, function ($clone) {
 
+							var $newElem = transferAttributes(tmpl);
+
 							$newElem.find('div').html($clone.html());
+							$compile($newElem)($scope);
 							$elem.replaceWith($newElem);
 							$newElem.css('height', contentHeight() + 'px');
 							angular.element($window).bind('resize', function () {
@@ -206,7 +204,6 @@
 							});
 
 						});
-
 					};
 
 				}
