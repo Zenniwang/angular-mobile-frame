@@ -6,6 +6,6 @@ Todos
 ✔ Integrate `requestAnimationFrame` into content-resizing  
 ✔ Change CSS to BEM-convention  
 ✔ Add decent comments  
-☐ Insert a changelog  
+✔ Insert a changelog  
 ☐ Publish to bower  
 ☐ …  
