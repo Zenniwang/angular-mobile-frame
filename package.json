@@ -1,7 +1,7 @@
 {
   "name": "angular-mobile-frame",
   "title": "Angular Mobile Frame",
-  "version": "0.0.1rc1",
+  "version": "0.0.1rc2",
   "description": "Handy frame-elements for a typical mobile website with off-canvas-navigation.",
   "homepage": "https://github.com/herschel666/angular-mobile-frame",
   "scripts": {

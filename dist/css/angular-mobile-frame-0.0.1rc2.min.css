@@ -1,5 +1,5 @@
 /*!
- * Angular Mobile Frame - v0.0.1rc1
+ * Angular Mobile Frame - v0.0.1rc2
  *
  * 2014-01-25
  *
