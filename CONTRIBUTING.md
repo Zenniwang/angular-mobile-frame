@@ -26,7 +26,7 @@ When **npm** is installed, use it to install the needed npm packages:
 To get the source of this project clone the git repository via:
 
 ````
-$ git clone https://github.com/PascalPrecht/angular-component-seed
+$ git clone https://github.com/herschel666/angular-mobile-frame
 ````
 
 This will clone the complete source to your local machine. Navigate to the project folder
@@ -89,10 +89,7 @@ or doesn't pass the tests.
   - When all tests pass, everything's fine
 - Commit your changes
   - Please provide a git message which explains what you've done
-  - This repo uses [Brian's conventional-changelog task](https://github.com/btford/grunt-conventional-changelog) so please make sure your commits follow the [conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit)
   - Commit to the forked repository
 - Make a pull request
-  - Make sure you send the PR to the <code>canary</code> branch
-  - Travis CI is watching you!
 
 If you follow these instructions, your PR will land pretty safety in the main repo!
