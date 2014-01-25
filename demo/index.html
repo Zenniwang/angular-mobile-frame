@@ -5,15 +5,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	<title>Mobile-Frame-Demo</title>
 	<link rel="stylesheet" href="../dist/css/angular-mobile-frame-0.0.1rc1.css">
+	<!-- <link rel="stylesheet" href="../src/css/angular-mobile-frame.css"> -->
 	<link rel="stylesheet" href="assets/styles/demo.css">
 </head>
 <body>
 
 	<mobile-frame class="custom-class">
-		<mobile-header>
+		<mobile-header height="50">
 			<strong>Angular Mobile-Frame</strong>
 		</mobile-header>
-		<mobile-nav>
+		<mobile-nav width="200">
 			<form class="search-form" ng-submit="onSearch()" ng-controller="SearchFormCtrl">
 				<input type="search" placeholder="Search &hellip;" ng-model="search" blur-on-submit>
 			</form>
@@ -32,7 +33,7 @@
 		<mobile-content>
 			<div ng-view></div>
 		</mobile-content>
-		<mobile-footer>
+		<mobile-footer height="30">
 			<small>&copy; 2013 &mdash; <a href="http://www.emanuel-kluge.de/">Emanuel Kluge</a></small>
 		</mobile-footer>
 	</mobile-frame>
@@ -40,6 +41,7 @@
 	<script src="../bower_components/angular/angular.min.js"></script>
 	<script src="../bower_components/angular-route/angular-route.min.js"></script>
 	<script src="../dist/js/angular-mobile-frame-0.0.1rc1.js"></script>
+	<!-- <script src="../src/js/angular-mobile-frame.js"></script> -->
 	<script src="assets/scripts/app.js"></script>
 
 </body>

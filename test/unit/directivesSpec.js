@@ -1,16 +1,10 @@
 describe('ek.mobileFrame', function () {
 
-  var $mobileFrame, $window;
+  var $window;
 
-  beforeEach(module('ek.mobileFrame', function ($mobileFrameProvider) {
-    $mobileFrameProvider
-      .setHeaderHeight(40)
-      .setFooterHeight(30)
-      .setNavWidth(200);
-  }));
+  beforeEach(module('ek.mobileFrame'));
 
-  beforeEach(inject(function (_$mobileFrame_, _$window_) {
-    $mobileFrame = _$mobileFrame_;
+  beforeEach(inject(function (_$window_) {
     $window = _$window_;
   }));
 
@@ -22,12 +16,12 @@ describe('ek.mobileFrame', function () {
 
       elem = angular.element([
         '<mobile-frame class="custom-class">',
-        ' <mobile-header>Hodor says: {{hodor}}</mobile-header>',
-        ' <mobile-nav>A link: {{link}}</mobile-nav>',
+        ' <mobile-header height="40">Hodor says: {{hodor}}</mobile-header>',
+        ' <mobile-nav width="200">A link: {{link}}</mobile-nav>',
         ' <mobile-content class="foo bar">',
         '   <div ng-view></div>',
         ' </mobile-content>',
-        ' <mobile-footer>&copy; {{year}}</mobile-footer>',
+        ' <mobile-footer height="30">&copy; {{year}}</mobile-footer>',
         '</mobile-frame>'
       ].join(''));
 
@@ -40,16 +34,6 @@ describe('ek.mobileFrame', function () {
       $window.innerHeight = 100;
 
     }));
-
-    it('should have the correct configs', function () {
-      expect($mobileFrame).toBeDefined();
-      expect($mobileFrame.getHeaderHeight).toBeDefined();
-      expect($mobileFrame.getFooterHeight).toBeDefined();
-      expect($mobileFrame.getNavWidth).toBeDefined();
-      expect($mobileFrame.getHeaderHeight()).toEqual(40);
-      expect($mobileFrame.getFooterHeight()).toEqual(30);
-      expect($mobileFrame.getNavWidth()).toEqual(200);
-    });
 
     it('should have the outer frame', function () {
       expect(elem[0].tagName.toLowerCase()).toEqual('section');
@@ -104,7 +88,7 @@ describe('ek.mobileFrame', function () {
       expect(content.length).toEqual(1);
       expect(inner.length).toEqual(1);
       expect(content.attr('role')).toEqual('main');
-      expect(inner.css('height')).toEqual('30px');
+      expect(content.css('height')).toEqual('30px');
 
       $window.innerHeight = 170;
 
@@ -112,7 +96,7 @@ describe('ek.mobileFrame', function () {
       evt.initEvent('resize', true, true);
       $window.dispatchEvent(evt);
 
-      expect(inner.css('height')).toEqual('100px');
+      expect(content.css('height')).toEqual('100px');
 
     });
 
