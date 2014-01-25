@@ -3,7 +3,7 @@
 	'use strict';
 
 	angular
-		.module('mf-demo', ['ek.mobileFrame'])
+		.module('mf-demo', ['ngRoute', 'ek.mobileFrame'])
 
 		.config([
 			'$routeProvider',
@@ -82,7 +82,7 @@
 			return {
 				restrict: 'A',
 				link: function ($scope, $elem) {
-					$elem.bind('keyup', function (evnt) {
+					$elem.on('keyup', function (evnt) {
 						if ( evnt.keyCode !== 13 ) {
 							return;
 						}

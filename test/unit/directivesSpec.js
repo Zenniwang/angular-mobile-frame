@@ -24,7 +24,9 @@ describe('ek.mobileFrame', function () {
         '<mobile-frame class="custom-class">',
         ' <mobile-header>Hodor says: {{hodor}}</mobile-header>',
         ' <mobile-nav>A link: {{link}}</mobile-nav>',
-        ' <mobile-content class="foo bar" ng-view ng-animate="{enter: \'hodor\'}"></mobile-content>',
+        ' <mobile-content class="foo bar">',
+        '   <div ng-view></div>',
+        ' </mobile-content>',
         ' <mobile-footer>&copy; {{year}}</mobile-footer>',
         '</mobile-frame>'
       ].join(''));
@@ -100,10 +102,9 @@ describe('ek.mobileFrame', function () {
           evt;
 
       expect(content.length).toEqual(1);
-      expect(content.attr('ng-view')).toBeUndefined();
       expect(inner.length).toEqual(1);
       expect(content.attr('role')).toEqual('main');
-      expect(content.css('height')).toEqual('30px');
+      expect(inner.css('height')).toEqual('30px');
 
       $window.innerHeight = 170;
 
@@ -111,17 +112,15 @@ describe('ek.mobileFrame', function () {
       evt.initEvent('resize', true, true);
       $window.dispatchEvent(evt);
 
-      expect(content.css('height')).toEqual('100px');
+      expect(inner.css('height')).toEqual('100px');
 
     });
 
-    it('should transfer the attributes of mobile-content', function () {
+    it('should transclude the mobile-content', function () {
 
       var inner = $('.mobile-content-inner', elem);
 
-      expect(inner.attr('ng-view')).toBeDefined();
-      expect(inner.attr('class')).toContain('foo bar');
-      expect(inner.attr('ng-animate')).toEqual('{enter: \'hodor\'}');
+      expect(inner.find('div').attr('ng-view')).toBeDefined();
 
     });
 
@@ -154,7 +153,7 @@ describe('ek.mobileFrame', function () {
         '<mobile-frame>',
         ' <mobile-header></mobile-header>',
         ' <mobile-nav></mobile-nav>',
-        ' <mobile-content class="foo bar" some-foo="bar" ng-animate="{enter: \'hodor\'}">',
+        ' <mobile-content class="foo bar">',
         '   <h1>Foobar - {{hodor}}</h1>',
         ' </mobile-content>',
         ' <mobile-footer></mobile-footer>',
@@ -177,6 +176,7 @@ describe('ek.mobileFrame', function () {
 
       expect(content.length).toEqual(1);
       expect(content.attr('role')).toEqual('main');
+      expect(content.attr('class')).toContain('foo bar');
       expect(inner.length).toEqual(1);
       expect(headline.length).toEqual(1);
       expect(headline.text()).toEqual('Foobar - ');
@@ -186,16 +186,6 @@ describe('ek.mobileFrame', function () {
       });
 
       expect(headline.text()).toEqual('Foobar - Hodor');
-
-    });
-
-    it('should transfer the attributes of mobile-content', function () {
-
-      var inner = $('.mobile-content-inner', elem);
-
-      expect(inner.attr('some-foo')).toEqual('bar');
-      expect(inner.attr('class')).toContain('foo bar');
-      expect(inner.attr('ng-animate')).toEqual('{enter: \'hodor\'}');
 
     });
 

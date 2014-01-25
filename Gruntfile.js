@@ -4,8 +4,9 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-conventional-changelog');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('bower.json'),
@@ -44,7 +45,9 @@ module.exports = function (grunt) {
       },
       src: {
         files: {
-          'dist/js/<%= pkg.name %>-<%= pkg.version %>.min.js': 'src/js/<%= pkg.name %>.js'
+          'dist/js/<%= pkg.name %>-<%= pkg.version %>.min.js': [
+            'dist/js/<%= pkg.name %>-<%= pkg.version %>.js'
+          ]
         }
       }
     },
@@ -54,7 +57,9 @@ module.exports = function (grunt) {
           banner: '<%= banner %>'
         },
         files: {
-          'dist/css/<%= pkg.name %>-<%= pkg.version %>.css': ['src/**/*.css']
+          'dist/css/<%= pkg.name %>-<%= pkg.version %>.min.css': [
+            'dist/css/<%= pkg.name %>-<%= pkg.version %>.css'
+          ]
         }
       }
     },
@@ -68,9 +73,18 @@ module.exports = function (grunt) {
         singleRun: false
       }
     },
-    changelog: {
-      options: {
-        dest: 'CHANGELOG.md'
+    clean: [
+      'dist/css',
+      'dist/js'
+    ],
+    copy: {
+      css: {
+        src: 'src/css/<%= pkg.name %>.css',
+        dest: 'dist/css/<%= pkg.name %>-<%= pkg.version %>.css'
+      },
+      js: {
+        src: 'src/js/<%= pkg.name %>.js',
+        dest: 'dist/js/<%= pkg.name %>-<%= pkg.version %>.js'
       }
     }
   });
@@ -78,5 +92,5 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['jshint', 'karma']);
   grunt.registerTask('test', ['karma:unit']);
   grunt.registerTask('test-server', ['karma:server']);
-  grunt.registerTask('build', ['jshint', 'karma:unit', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['jshint', 'karma:unit', 'clean', 'copy', 'uglify', 'cssmin']);
 };
