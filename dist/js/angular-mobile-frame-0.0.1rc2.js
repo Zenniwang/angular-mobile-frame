@@ -28,9 +28,8 @@
 		.controller('MobileFrameCtrl', [
 			'$scope',
 			'$window',
-			'$animate',
 			'$location',
-			function ($scope, $window, $animate, $location) {
+			function ($scope, $window, $location) {
 
 				var that = this;
 
