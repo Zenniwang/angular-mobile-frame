@@ -7,7 +7,10 @@ describe('ek.mobileFrame', function () {
   beforeEach(inject(function ($rootScope, $controller) {
     scope = $rootScope.$new();
     controller = $controller('MobileFrameCtrl', {
-      $scope: scope
+      $scope: scope,
+      $window: {
+        innerHeight: 200
+      }
     });
   }));
 
@@ -15,33 +18,19 @@ describe('ek.mobileFrame', function () {
 
     it('should be defined', function () {
       expect(controller).toBeDefined();
-    });
-
-    it('should have a "toggleNav"-method', function () {
+      expect(controller.navVisible).toBeDefined();
+      expect(controller.navAnimating).toBeDefined();
       expect(controller.toggleNav).toBeDefined();
     });
 
-    it('should have a "onNavToggle"-method', function () {
-      expect(controller.onNavToggle).toBeDefined();
+    it('should have default dimension values', function () {
+      expect(controller.headerHeight).toBe(48);
+      expect(controller.footerHeight).toBe(32);
+      expect(controller.navWidth).toBe(240);
     });
 
-    it('"onNavToggle" passes a callback', function () {
-
-      expect(controller.callback).toBeUndefined();
-      controller.onNavToggle(function () {});
-      expect(controller.callback).toBeDefined();
-      expect(typeof controller.callback).toBe('function');
-
-    });
-
-    it('the callback gets called', function () {
-
-      controller.onNavToggle(function () {});
-      spyOn(controller, 'callback');
-      controller.toggleNav();
-
-      expect(controller.callback).toHaveBeenCalled();
-
+    it('should compute the correct content-height', function () {
+      expect(controller.contentHeight()).toBe(120);
     });
 
   });

@@ -11,6 +11,8 @@ html, body {
 	-webkit-transition: -webkit-transform .2s linear;
 	-moz-transition: -moz-transform .2s linear;
 	transition: transform .2s linear;
+	-webkit-backface-visibility: hidden
+	backface-visibility: hidden;
 	}
 
 .mobile-content {
@@ -18,7 +20,7 @@ html, body {
 	position: relative;
 	}
 
-.mobile-content-inner {
+.mobile-content__inner {
 	bottom: 0;
 	left: 0;
 	overflow-x: hidden;

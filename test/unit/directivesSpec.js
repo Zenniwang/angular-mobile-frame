@@ -53,7 +53,7 @@ describe('ek.mobileFrame', function () {
       expect(header.attr('role')).toEqual('banner');
       expect(header.css('height')).toEqual('40px');
 
-      expect(headerInner[0].className).toEqual('mobile-header-inner');
+      expect(headerInner[0].className).toEqual('mobile-header__inner');
       expect(headerInner.text()).toEqual('Hodor says: ');
 
       scope.$apply(function () {
@@ -67,7 +67,7 @@ describe('ek.mobileFrame', function () {
     it('should have the navigation', function () {
 
       var nav = $('.mobile-nav', elem),
-          inner = nav.find('.mobile-nav-inner');
+          inner = nav.find('.mobile-nav__inner');
 
       expect(nav.length).toEqual(1);
       expect(nav.css('width')).toEqual('200px');
@@ -84,7 +84,7 @@ describe('ek.mobileFrame', function () {
     it('should have the content', function () {
 
       var content = $('.mobile-content', elem),
-          inner = content.find('.mobile-content-inner'),
+          inner = content.find('.mobile-content__inner'),
           evt;
 
       expect(content.length).toEqual(1);
@@ -104,7 +104,7 @@ describe('ek.mobileFrame', function () {
 
     it('should transclude the mobile-content', function () {
 
-      var inner = $('.mobile-content-inner', elem);
+      var inner = $('.mobile-content__inner', elem);
 
       expect(inner.find('div').attr('ng-view')).toBeDefined();
 
@@ -113,7 +113,7 @@ describe('ek.mobileFrame', function () {
     it('should have the footer', function () {
 
       var footer = $('.mobile-footer', elem),
-          inner = footer.find('.mobile-footer-inner');
+          inner = footer.find('.mobile-footer__inner');
 
       expect(footer.length).toEqual(1);
       expect(footer.css('height')).toEqual('30px');
@@ -157,7 +157,7 @@ describe('ek.mobileFrame', function () {
     it('should have the content', function () {
 
       var content = $('.mobile-content', elem),
-          inner = content.find('.mobile-content-inner'),
+          inner = content.find('.mobile-content__inner'),
           headline = inner.find('h1');
 
       expect(content.length).toEqual(1);
