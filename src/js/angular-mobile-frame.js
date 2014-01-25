@@ -129,7 +129,10 @@
 		[_directive_]('mobileContent', ['$window', function ($window) {
 
 			function setHeight($elem) {
-				$elem.css('height', this.contentHeight() + 'px');
+				var that = this;
+				requestAnimationFrame(function () {
+					$elem.css('height', that.contentHeight() + 'px');
+				});
 			}
 
 			return {

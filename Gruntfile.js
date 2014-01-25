@@ -6,6 +6,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-karma');
 
   grunt.initConfig({
@@ -37,6 +38,12 @@ module.exports = function (grunt) {
         globals: {
           angular: true
         }
+      }
+    },
+    concat: {
+      dist: {
+        src: ['src/js/*.js'],
+        dest: 'dist/js/<%= pkg.name %>-<%= pkg.version %>.js'
       }
     },
     uglify: {
@@ -81,10 +88,6 @@ module.exports = function (grunt) {
       css: {
         src: 'src/css/<%= pkg.name %>.css',
         dest: 'dist/css/<%= pkg.name %>-<%= pkg.version %>.css'
-      },
-      js: {
-        src: 'src/js/<%= pkg.name %>.js',
-        dest: 'dist/js/<%= pkg.name %>-<%= pkg.version %>.js'
       }
     }
   });
@@ -92,5 +95,5 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['jshint', 'karma']);
   grunt.registerTask('test', ['karma:unit']);
   grunt.registerTask('test-server', ['karma:server']);
-  grunt.registerTask('build', ['jshint', 'karma:unit', 'clean', 'copy', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['jshint', 'karma:unit', 'clean', 'copy', 'concat', 'uglify', 'cssmin']);
 };

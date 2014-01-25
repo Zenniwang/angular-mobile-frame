@@ -33,6 +33,8 @@ describe('ek.mobileFrame', function () {
 
       $window.innerHeight = 100;
 
+      requestAnimationFrame = function (cb) { cb(); };
+
     }));
 
     it('should have the outer frame', function () {
