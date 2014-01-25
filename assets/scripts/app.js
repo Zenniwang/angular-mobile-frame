@@ -3,12 +3,9 @@
 	'use strict';
 
 	angular
-		.module('mf-demo', ['ek.mobileFrame'])
+		.module('mf-demo', ['ek.mobileFrame', 'ngRoute'])
 
-		.config([
-			'$routeProvider',
-			'$mobileFrameProvider',
-			function ($routeProvider, $mobileFrameProvider) {
+		.config(['$routeProvider', function ($routeProvider) {
 
 				$routeProvider
 					.when('/', {
@@ -47,11 +44,6 @@
 					.otherwise({
 						redirectTo: '/'
 					});
-
-					$mobileFrameProvider
-						.setHeaderHeight(50)
-						.setFooterHeight(30)
-						.setNavWidth(200);
 
 			}
 		])
